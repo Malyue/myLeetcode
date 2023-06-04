@@ -12,5 +12,28 @@ package main
 // 4和6存在于nums2中，但不存在于nums1中
 
 func findDifference(nums1 []int, nums2 []int) [][]int {
+	// 用map来存储
+	map1 := make(map[int]bool)
+	map2 := make(map[int]bool)
 
+	// 遍历存储到map中
+	res := make([][]int, 2)
+	for _, num := range nums1 {
+		map1[num] = true
+	}
+	for _, num := range nums2 {
+		map2[num] = true
+	}
+
+	for num := range map1 {
+		if _, exist := map2[num]; !exist {
+			res[0] = append(res[0], num)
+		}
+	}
+	for num := range map2 {
+		if _, exist := map1[num]; !exist {
+			res[1] = append(res[1], num)
+		}
+	}
+	return res
 }
